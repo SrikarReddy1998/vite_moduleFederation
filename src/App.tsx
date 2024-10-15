@@ -3,10 +3,13 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { lazy, Suspense } from "react";
+import { useAtom } from "jotai";
+import { counterAtom } from "./jotai_stateManage";
 
 function App() {
   //   const [count, setCount] = useState(0)
   const Button = lazy(() => import("anyModuleName/ExposingButton"));
+  const [count, setCount] = useAtom(counterAtom);
 
   return (
     <>
@@ -18,6 +21,8 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
+        <h1>{count}</h1>
+        <button onClick={() => setCount((prev) => prev + 1)}>Increment</button>
       </div>
       <Suspense>
         <Button>Received Button</Button>
